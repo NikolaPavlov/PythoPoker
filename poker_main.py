@@ -1,7 +1,3 @@
-# representing the hands
-# [2s, 3h, 4h, 5s, 6s]
-
-
 def find_max_hand(hands):
     '''return the best hand'''
     return max(hands, key=hand_rank)
@@ -9,46 +5,46 @@ def find_max_hand(hands):
 
 def hand_rank(hand):
     '''return number represent the hand strenght
-    the bigger the number the better the hand'''
-    ranks = cards_to_ranks(hand)
-    # straight flush
-    if straight(hand) and flush(hand):
-        return (8, max(cards_to_ranks))
-    # four of a kind
-    elif kind(4, ranks):
-        return (7, kind(4, ranks))
-    # full house
-    elif kind(3, ranks) and kind(2, ranks):
-        return(6, kind(3, ranks), kind(2, ranks))
-    # flush
-    elif flush(hand):
-        return(5, ranks)
-    # straight
-    elif straight(ranks):
-        return(4, max(ranks))
-    # trips
-    # two pair
-    # one pair
-    # hight card hand
+    the biranks_of_the_hander the number the better the hand'''
+    cards_as_points = cards_to_ranks(hand)
+    # 9 straight flush
+    if flush(hand) and straight(hand):
+        return(9, cards_as_points)
+    # 8 kfour of a kind
+    # 7 full house
+    # 6 flush
+    # 5 straight
+    # 4 trips
+    # 3 two pair
+    # 2 one pair
+    # 1 hight card hand
 
-def find_flush(hand):
+def flush(hand):
     pass
 
-def find_straight(hand):
+
+def straight(hand):
+    '''Return True if all 5 cards are sequential'''
+    cards_as_points = cards_to_ranks(hand)
+    if cards_as_points[0] - cards_as_points[4] == 4 and len(set(cards_as_points)) == 5:
+        return True
+    else:
+        return False
+
+
+def two_pair(hand):
     pass
 
-def find_two_pair(hand):
-    pass
 
 def kind(hand):
     pass
 
 
 def cards_to_ranks(cards):
-    '''turn card into values represent their power'''
-    ranks = ['--23456789TJQKA'.index(r) for r,s in cards]
-    ranks.sort(reverse=True)
-    return ranks
+    '''return list of values representing the strenght of the cards
+    A-14 K-13 Q-12 J-11 T-10 9-9 ... 2-2'''
+    ranks_of_the_hand = ['--23456789TJQKA'.index(r) for r,s in cards]
+    ranks_of_the_hand.sort(reverse=True)
+    return ranks_of_the_hand
 
-
-print(cards_to_ranks('2s 3h 4h 4h 2s'.split()))
+straight('3s 4c 5d 6d 9c'.split())
