@@ -10,16 +10,23 @@ def hand_rank(hand):
     # 9 straight flush
     if flush(hand) and straight(hand):
         return(9, cards_as_points)
-    # 8 kfour of a kind
+    # 8 four of a kind
+    elif kind(4, hand):
+        return(8, )
     # 7 full house
     # 6 flush
+    elif flush(hand):
+        return(6, cards_as_points)
     # 5 straight
+    elif straight(hand):
+        return(5, cards_as_points)
     # 4 trips
     # 3 two pair
     # 2 one pair
     # 1 hight card hand
 
 def flush(hand):
+    '''return True if all cards are same suit'''
     suits = [s for r, s in hand]
     if len(set(suits)) == 1:
         return True
@@ -30,16 +37,26 @@ def straight(hand):
     cards_as_points = cards_to_ranks(hand)
     if cards_as_points[0] - cards_as_points[4] == 4 and len(set(cards_as_points)) == 5:
         return True
-    else:
-        return False
 
 
 def two_pair(hand):
-    pass
+    cards_as_points = cards_to_ranks(hand)
+    higher_pair = kind(2, hand)
+    if higher_pair:
+        hand.pop(0)
+        hand.pop(0)
+        lower_pair = kind(2, hand)
+        # print('H:' + str(higher_pair), 'L:' + str(lower_pair))
+        if higher_pair and lower_pair:
+            return True
+        else:
+            return False
 
-
-def kind(hand):
-    pass
+def kind(n, hand):
+    cards_as_points = cards_to_ranks(hand)
+    for card in cards_as_points:
+        if cards_as_points.count(card) == n:
+            return card
 
 
 def cards_to_ranks(cards):
@@ -49,4 +66,6 @@ def cards_to_ranks(cards):
     ranks_of_the_hand.sort(reverse=True)
     return ranks_of_the_hand
 
-print(flush('3s 4c 5d 6d 9c'.split()))
+# two_pair('7s 7h 6c 2h 6d'.split())
+# two_pair('4h 4d 4c 4s Ad'.split())
+# two_pair('4h 4d 4c 2s 2d'.split())
