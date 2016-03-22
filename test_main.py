@@ -1,5 +1,5 @@
 import unittest
-from poker_main import cards_to_ranks, hand_rank, straight
+from poker_main import cards_to_ranks, hand_rank, straight, flush
 
 
 class MyTest(unittest.TestCase):
@@ -33,6 +33,11 @@ class MyTest(unittest.TestCase):
         self.assertTrue(straight(self.straight_1))
         self.assertTrue(straight(self.straight_2))
         self.assertFalse(straight(self.rand_hand1))
+
+
+    def test_is_it_flush(self):
+        self.assertTrue(flush(self.flush))
+        self.assertFalse(flush(self.quads))
 
 if __name__ == '__main__':
     unittest.main()

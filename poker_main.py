@@ -20,7 +20,9 @@ def hand_rank(hand):
     # 1 hight card hand
 
 def flush(hand):
-    pass
+    suits = [s for r, s in hand]
+    if len(set(suits)) == 1:
+        return True
 
 
 def straight(hand):
@@ -47,4 +49,4 @@ def cards_to_ranks(cards):
     ranks_of_the_hand.sort(reverse=True)
     return ranks_of_the_hand
 
-straight('3s 4c 5d 6d 9c'.split())
+print(flush('3s 4c 5d 6d 9c'.split()))
