@@ -8,31 +8,31 @@ def hand_rank(hand):
     the biranks_of_the_hander the number the better the hand'''
     cards_as_points = cards_to_ranks(hand)
     # 8 straight flush
-    if flush(hand) and straight(hand):
+    if flush(hand) and straight(hand): # (8, [6,5,4,3,2])
         return(8, cards_as_points)
     # 7 four of a kind
-    elif kind(4, hand):
+    elif kind(4, hand): #(7, )
         return(7, )
     # 6 full house
-    elif kind(3, hand) and kind(2, hand):
+    elif kind(3, hand) and kind(2, hand): # (6,3,2)
         return(6, kind(3, hand), kind(2, hand))
     # 5 flush
-    elif flush(hand):
+    elif flush(hand): # (5, [12,11,5,4,2])
         return(5, cards_as_points)
     # 4 straight
-    elif straight(hand):
+    elif straight(hand): # (4, [8,7,6,5,4])
         return(4, cards_as_points)
     # 3 trips
-    elif kind(3, hand):
-        return(3, kind(3, hand), cards_as_points)
+    elif kind(3, hand): #  (3, 14)
+        return(3, kind(3, hand))
     # 2 two pair
-    elif two_pair(hand):
+    elif two_pair(hand): # (2,14,13,[14,14,13,13,2])
         return(2, two_pair(hand), cards_as_points)
     # 1 one pair
-    elif kind(2, cards_as_points):
+    elif kind(2, cards_as_points): # (1,14,[14,14,10,4,2])
         return(1, kind(2, cards_as_points), cards_as_points)
     # 0 hight card hand
-    else:
+    else: # ([8,7,5,4,3])
         return(0, cards_as_points)
 
 
@@ -52,13 +52,7 @@ def straight(hand):
 
 
 def two_pair(hand):
-    cards_as_points = cards_to_ranks(hand)
-    pair = kind(2, hand)
-    for el in hand:
-        if el.contain(pair):
-            hand.remove(el)
-    print(hand)
-
+    pass
 
 
 def kind(n, hand):
