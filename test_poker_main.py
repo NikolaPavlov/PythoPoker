@@ -19,6 +19,16 @@ class MyTest(unittest.TestCase):
         self.rand_hand2 = 'Ts Kc Qd Ad Ac'.split()
 
 
+    def testing_hand_rank(self):
+        self.assertEqual(hand_rank(self.straight_flush), (8,[6,5,4,3,2]))
+        self.assertEqual(hand_rank(self.quads), (7,))
+        self.assertEqual(hand_rank(self.full_house), (6,14,13))
+        self.assertEqual(hand_rank(self.flush), (5, [13,12,11,10,2]))
+        self.assertEqual(hand_rank(self.straight_1), (4, [10,9,8,7,6]))
+        self.assertEqual(hand_rank(self.trips), (3,2,[14,13,2,2,2]))
+        # self.assertEqual(hand_rank(self.two_pairs), (2, 1))
+
+
     def test_is_it_straight_flush(self):
         self.assertTrue(flush(self.straight_flush))
         self.assertTrue(straight(self.straight_flush))
@@ -30,7 +40,6 @@ class MyTest(unittest.TestCase):
 
 
     def test_is_it_full_house(self):
-        # TODO: fix this shit
         self.assertTrue(kind(3, self.full_house))
         self.assertTrue(kind(2, self.full_house))
 
@@ -77,9 +86,6 @@ class MyTest(unittest.TestCase):
         self.assertEqual(cards_to_ranks(self.straight_2), [6,5,4,3,2])
 
 
-    def testing_hand_rank(self):
-        self.assertEqual(hand_rank(self.straight_flush), (9,[6,5,4,3,2]))
-        self.assertEqual(hand_rank(self.quads), (8,))
 
 
 if __name__ == '__main__':

@@ -7,23 +7,34 @@ def hand_rank(hand):
     '''return number represent the hand strenght
     the biranks_of_the_hander the number the better the hand'''
     cards_as_points = cards_to_ranks(hand)
-    # 9 straight flush
+    # 8 straight flush
     if flush(hand) and straight(hand):
-        return(9, cards_as_points)
-    # 8 four of a kind
+        return(8, cards_as_points)
+    # 7 four of a kind
     elif kind(4, hand):
-        return(8, )
-    # 7 full house
-    # 6 flush
+        return(7, )
+    # 6 full house
+    elif kind(3, hand) and kind(2, hand):
+        return(6, kind(3, hand), kind(2, hand))
+    # 5 flush
     elif flush(hand):
-        return(6, cards_as_points)
-    # 5 straight
-    elif straight(hand):
         return(5, cards_as_points)
-    # 4 trips
-    # 3 two pair
-    # 2 one pair
-    # 1 hight card hand
+    # 4 straight
+    elif straight(hand):
+        return(4, cards_as_points)
+    # 3 trips
+    elif kind(3, hand):
+        return(3, kind(3, hand), cards_as_points)
+    # 2 two pair
+    elif two_pair(hand):
+        return(2, two_pair(hand), cards_as_points)
+    # 1 one pair
+    elif kind(2, cards_as_points):
+        return(1, kind(2, cards_as_points), cards_as_points)
+    # 0 hight card hand
+    else:
+        return(0, cards_as_points)
+
 
 def flush(hand):
     '''return True if all cards are same suit'''
@@ -35,22 +46,20 @@ def flush(hand):
 def straight(hand):
     '''Return True if all 5 cards are sequential'''
     cards_as_points = cards_to_ranks(hand)
-    if cards_as_points[0] - cards_as_points[4] == 4 and len(set(cards_as_points)) == 5:
+    if cards_as_points[0] - cards_as_points[4] == 4 \
+        and len(set(cards_as_points)) == 5:
         return True
 
 
 def two_pair(hand):
     cards_as_points = cards_to_ranks(hand)
-    higher_pair = kind(2, hand)
-    if higher_pair:
-        hand.pop(0)
-        hand.pop(0)
-        lower_pair = kind(2, hand)
-        # print('H:' + str(higher_pair), 'L:' + str(lower_pair))
-        if higher_pair and lower_pair:
-            return True
-        else:
-            return False
+    pair = kind(2, hand)
+    for el in hand:
+        if el.contain(pair):
+            hand.remove(el)
+    print(hand)
+
+
 
 def kind(n, hand):
     cards_as_points = cards_to_ranks(hand)
@@ -66,6 +75,5 @@ def cards_to_ranks(cards):
     ranks_of_the_hand.sort(reverse=True)
     return ranks_of_the_hand
 
-# two_pair('7s 7h 6c 2h 6d'.split())
-# two_pair('4h 4d 4c 4s Ad'.split())
-# two_pair('4h 4d 4c 2s 2d'.split())
+
+two_pair('3s 3c 9s 9c Ts'.split())
