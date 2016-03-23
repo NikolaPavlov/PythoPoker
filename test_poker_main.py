@@ -26,7 +26,14 @@ class MyTest(unittest.TestCase):
         self.assertEqual(hand_rank(self.flush), (5, [13,12,11,10,2]))
         self.assertEqual(hand_rank(self.straight_1), (4, [10,9,8,7,6]))
         self.assertEqual(hand_rank(self.trips), (3,2,[14,13,2,2,2]))
-        # self.assertEqual(hand_rank(self.two_pairs), (2, 1))
+        self.assertEqual(hand_rank(self.two_pairs), (2, [9,9,3,3], [10,9,9,3,3]))
+
+
+    def test_cards_to_ranks(self):
+        self.assertEqual(cards_to_ranks(self.rand_hand1), [9, 6, 5, 4, 3])
+        self.assertEqual(cards_to_ranks(self.rand_hand2), [14,14,13,12,10])
+        self.assertEqual(cards_to_ranks(self.straight_1), [10,9,8,7,6])
+        self.assertEqual(cards_to_ranks(self.straight_2), [6,5,4,3,2])
 
 
     def test_is_it_straight_flush(self):
@@ -62,9 +69,9 @@ class MyTest(unittest.TestCase):
 
 
     def test_is_it_two_pair(self):
-        self.assertTrue(two_pair(self.two_pairs))
+        self.assertEqual(two_pair(self.two_pairs), ([9, 9, 3, 3]))
         self.assertFalse(two_pair(self.quads))
-        # self.assertFalse(two_pair(self.full_house))
+        self.assertFalse(two_pair(self.full_house))
         self.assertFalse(two_pair(self.trips))
         self.assertFalse(two_pair(self.one_pair))
 
@@ -74,16 +81,6 @@ class MyTest(unittest.TestCase):
         self.assertFalse(kind(2, self.trips))
         self.assertFalse(kind(2, self.straight_1))
 
-
-    def test_higher_hand(self):
-        pass
-
-
-    def test_cards_to_ranks(self):
-        self.assertEqual(cards_to_ranks(self.rand_hand1), [9, 6, 5, 4, 3])
-        self.assertEqual(cards_to_ranks(self.rand_hand2), [14,14,13,12,10])
-        self.assertEqual(cards_to_ranks(self.straight_1), [10,9,8,7,6])
-        self.assertEqual(cards_to_ranks(self.straight_2), [6,5,4,3,2])
 
 
 

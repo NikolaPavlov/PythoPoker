@@ -23,10 +23,10 @@ def hand_rank(hand):
     elif straight(hand): # (4, [8,7,6,5,4])
         return(4, cards_as_points)
     # 3 trips
-    elif kind(3, hand): #  (3, 14)
-        return(3, kind(3, hand))
+    elif kind(3, hand): #  (3, [14,12,12,12,3])
+        return(3, kind(3, hand), cards_as_points)
     # 2 two pair
-    elif two_pair(hand): # (2,14,13,[14,14,13,13,2])
+    elif two_pair(hand): # (2, [9,9,3,3], [10,9,9,3,3])
         return(2, two_pair(hand), cards_as_points)
     # 1 one pair
     elif kind(2, cards_as_points): # (1,14,[14,14,10,4,2])
@@ -52,7 +52,19 @@ def straight(hand):
 
 
 def two_pair(hand):
-    pass
+    cards_as_points = cards_to_ranks(hand)
+    answers = []
+    for card in cards_as_points:
+        if cards_as_points.count(card) == 2:
+            answers.append(card)
+    if len(answers) == 4:
+        answers.sort(reverse=True)
+        return answers
+    else:
+        # print('they aren\'t two pair')
+        pass
+
+
 
 
 def kind(n, hand):
@@ -71,3 +83,5 @@ def cards_to_ranks(cards):
 
 
 two_pair('3s 3c 9s 9c Ts'.split())
+two_pair('7s 3c 9s 9c Ts'.split())
+
