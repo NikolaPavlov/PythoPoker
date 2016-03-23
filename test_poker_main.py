@@ -24,7 +24,7 @@ class MyTest(unittest.TestCase):
         self.one_pair = 'Ah Ad 4s 2s 8d'.split()
         self.one_pair_rank = hand_rank(self.one_pair)
         self.rand_hand1 = '3s 4c 5d 6d 9c'.split()
-        # self.rand_hand_rank = hand_rank(self.rand_hand1)
+        self.rand_hand_rank = hand_rank(self.rand_hand1)
         self.rand_hand2 = 'Ts Kc Qd Ad Ac'.split()
 
 
@@ -97,7 +97,32 @@ class MyTest(unittest.TestCase):
         self.assertTrue(self.straight_flush_rank > self.quads_rank)
 
 
+    def test_quads_vs_full_house(self):
+        self.assertTrue(self.quads_rank > self.full_house_rank)
 
+
+    # def test_full_house_vs_flush(self):
+        # self.assertTrue(self.full_house_rank > self.flush)
+
+
+    def test_flush_vs_straight_rank(self):
+        self.assertTrue(self.flush_rank > self.straight_rank)
+
+
+    def test_straight_vs_trips(self):
+        self.assertTrue(self.straight_rank > self.trips_rank)
+
+
+    def test_trips_vs_two_pair(self):
+        self.assertTrue(self.trips_rank > self.two_pairs_rank)
+
+
+    def test_two_pair_vs_one_pair(self):
+        self.assertTrue(self.two_pairs_rank > self.one_pair_rank)
+
+
+    def one_pair_vs_high_card(self):
+        self.assertTrue(self.one_pair_rank > self.rand_hand_rank)
 
 
 if __name__ == '__main__':

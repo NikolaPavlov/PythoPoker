@@ -65,8 +65,6 @@ def two_pair(hand):
         pass
 
 
-
-
 def kind(n, hand):
     cards_as_points = cards_to_ranks(hand)
     for card in cards_as_points:
@@ -82,6 +80,6 @@ def cards_to_ranks(cards):
     return ranks_of_the_hand
 
 
-two_pair('3s 3c 9s 9c Ts'.split())
-two_pair('7s 3c 9s 9c Ts'.split())
+# two_pair('3s 3c 9s 9c Ts'.split())
+# two_pair('7s 3c 9s 9c Ts'.split())
 
