@@ -29,8 +29,8 @@ def hand_rank(hand):
     elif two_pair(hand): # (2, [9,9,3,3], [10,9,9,3,3])
         return(2, two_pair(hand), cards_as_points)
     # 1 one pair
-    elif kind(2, cards_as_points): # (1,14,[14,14,10,4,2])
-        return(1, kind(2, cards_as_points), cards_as_points)
+    elif kind(2, hand): # (1,14,[14,14,10,4,2])
+        return(1, kind(2, hand), cards_as_points)
     # 0 hight card hand
     else: # ([8,7,5,4,3])
         return(0, cards_as_points)

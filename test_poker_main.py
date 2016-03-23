@@ -7,18 +7,28 @@ class MyTest(unittest.TestCase):
 
     def setUp(self):
         self.straight_flush = '2s 3s 4s 5s 6s'.split()
+        self.straight_flush_rank = hand_rank(self.straight_flush)
         self.quads = 'Ah Ac Ad As Kd'.split()
+        self.quads_rank = hand_rank(self.quads)
         self.full_house = 'Ah Ad Ac Kd Kh'.split()
+        self.full_house_rank = hand_rank(self.full_house)
         self.flush = 'Ts Js Qs Ks 2s'.split()
+        self.flush_rank = hand_rank(self.flush)
         self.straight_1 = '7h 8c 9s Ts 6s'.split()
+        self.straight_rank = hand_rank(self.straight_1)
         self.straight_2 = '2s 3h 4s 5d 6c'.split()
         self.trips = '2s 2c 2d Ah Kh'.split()
+        self.trips_rank = hand_rank(self.trips)
         self.two_pairs = '3s 3c 9s 9c Ts'.split()
+        self.two_pairs_rank = hand_rank(self.two_pairs)
         self.one_pair = 'Ah Ad 4s 2s 8d'.split()
+        self.one_pair_rank = hand_rank(self.one_pair)
         self.rand_hand1 = '3s 4c 5d 6d 9c'.split()
+        # self.rand_hand_rank = hand_rank(self.rand_hand1)
         self.rand_hand2 = 'Ts Kc Qd Ad Ac'.split()
 
 
+    # check if func working properly
     def testing_hand_rank(self):
         self.assertEqual(hand_rank(self.straight_flush), (8,[6,5,4,3,2]))
         self.assertEqual(hand_rank(self.quads), (7,))
@@ -27,6 +37,7 @@ class MyTest(unittest.TestCase):
         self.assertEqual(hand_rank(self.straight_1), (4, [10,9,8,7,6]))
         self.assertEqual(hand_rank(self.trips), (3,2,[14,13,2,2,2]))
         self.assertEqual(hand_rank(self.two_pairs), (2, [9,9,3,3], [10,9,9,3,3]))
+        self.assertEqual(hand_rank(self.one_pair), (1,14, [14,14,8,4,2]))
 
 
     def test_cards_to_ranks(self):
@@ -80,6 +91,10 @@ class MyTest(unittest.TestCase):
         self.assertTrue(kind(2, self.one_pair))
         self.assertFalse(kind(2, self.trips))
         self.assertFalse(kind(2, self.straight_1))
+
+    # check hand vs other hand
+    def test_str_flush_vs_quads(self):
+        self.assertTrue(self.straight_flush_rank > self.quads_rank)
 
 
 
