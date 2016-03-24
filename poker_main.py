@@ -8,7 +8,7 @@ def find_max_hand(hands):
 
 def hand_rank(hand):
     '''return number represent the hand strenght
-    the biranks_of_the_hander the number the better the hand'''
+    bigger number represent better hand'''
     cards_as_points = cards_to_ranks(hand)
     # 8 straight flush
     if flush(hand) and straight(hand): # (8, [6,5,4,3,2])
@@ -63,8 +63,6 @@ def two_pair(hand):
     if len(answers) == 4:
         answers.sort(reverse=True)
         return answers
-    else:
-        pass
 
 
 def kind(n, hand):
@@ -86,17 +84,15 @@ CARDS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
 SUITS = ['d','h','c','s']
 DECK = [r+s for r in CARDS for s in SUITS]
 def deal(num_of_hands, num_of_cards=5):
-    '''return hand with 5 cards from the deck'''
-    # check python itertools
+    '''return num_of_hands hands with num_of_cards=5 cards from the deck'''
     random.shuffle(DECK)
     return [DECK[num_of_cards*i:num_of_cards*(i+1)] for i in range(num_of_hands)]
 
 
-n = 700*5000
-# n = 700*1000
-# n = 10000
+# n = 700*5000
+n = 700*1000
 def hand_frequencies(n):
-    'Generate n numbers of hands and return percentage of each type of hand'
+    '''Generate n numbers of hands and print percentage of each type of hand'''
     answers = {'high card':0,
                'one pair':0,
                'two pair':0,
@@ -129,11 +125,8 @@ def hand_frequencies(n):
             answers['straight flush'] += 1
 
     answers_as_tuples = answers.items()
-    # print(answers_as_tuples)
     for item in answers_as_tuples:
         print(item[0] + ':' + turn_num_to_percent(item[1], n) + '%')
-
-    # return answer
 
 
 def turn_num_to_percent(num, base):
@@ -141,4 +134,6 @@ def turn_num_to_percent(num, base):
     num_as_percentage = (num / base) * 100
     return '%.3f' % num_as_percentage
 
-# print(hand_frequencies(n))
+hand_frequencies(n)
+#TODO: check python itertools
+#TODO: sort the values of answers
