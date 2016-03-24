@@ -1,5 +1,11 @@
 import unittest
-from poker_main import cards_to_ranks, hand_rank, straight, flush, kind, two_pair, find_max_hand
+from poker_main import find_max_hand
+from poker_main import hand_rank
+from poker_main import cards_to_ranks
+from poker_main import flush
+from poker_main import straight
+from poker_main import two_pair
+from poker_main import kind
 
 
 class MyTest(unittest.TestCase):
@@ -28,7 +34,7 @@ class MyTest(unittest.TestCase):
         self.rand_hand2 = 'Ts Kc Qd Ad Ac'.split()
 
 
-    # check if func working properly
+    # check if functions working properly
     def testing_hand_rank(self):
         self.assertEqual(hand_rank(self.straight_flush), (8,[6,5,4,3,2]))
         self.assertEqual(hand_rank(self.quads), (7,))
@@ -43,7 +49,6 @@ class MyTest(unittest.TestCase):
 
     def test_cards_to_ranks(self):
         self.assertEqual(cards_to_ranks(self.rand_hand1), [9, 6, 5, 4, 3])
-        print(self.rand_hand1)
         self.assertEqual(cards_to_ranks(self.rand_hand2), [14,14,13,12,10])
         self.assertEqual(cards_to_ranks(self.straight_1), [10,9,8,7,6])
         self.assertEqual(cards_to_ranks(self.straight_2), [6,5,4,3,2])
@@ -93,6 +98,15 @@ class MyTest(unittest.TestCase):
         self.assertTrue(kind(2, self.one_pair))
         self.assertFalse(kind(2, self.trips))
         self.assertFalse(kind(2, self.straight_1))
+
+
+    def test_is_flush_with_straight_flush(self):
+        self.assertTrue(flush(self.straight_flush))
+
+
+    def test_is_straight_flush_with_flush(self):
+        self.assertFalse(flush(self.flush) and straight(self.flush))
+
 
     # check hand vs other hand
     def test_str_flush_vs_quads(self):

@@ -92,7 +92,8 @@ def deal(num_of_hands, num_of_cards=5):
     return [DECK[num_of_cards*i:num_of_cards*(i+1)] for i in range(num_of_hands)]
 
 
-n = 700*1000
+n = 700*5000
+# n = 700*1000
 # n = 10000
 def hand_frequencies(n):
     'Generate n numbers of hands and return percentage of each type of hand'
@@ -136,9 +137,8 @@ def hand_frequencies(n):
 
 
 def turn_num_to_percent(num, base):
-    '''take number and return :.3f string'''
+    '''take number and return percentage as :.3f string'''
     num_as_percentage = (num / base) * 100
     return '%.3f' % num_as_percentage
 
-
-print(hand_frequencies(n))
+# print(hand_frequencies(n))
