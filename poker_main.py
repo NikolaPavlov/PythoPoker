@@ -1,3 +1,6 @@
+import random
+
+
 def find_max_hand(hands):
     '''return the best hand'''
     return max(hands, key=hand_rank)
@@ -61,7 +64,6 @@ def two_pair(hand):
         answers.sort(reverse=True)
         return answers
     else:
-        # print('they aren\'t two pair')
         pass
 
 
@@ -72,17 +74,71 @@ def kind(n, hand):
             return card
 
 
-def cards_to_ranks(cards):
+def cards_to_ranks(hand):
     '''return list of values representing the strenght of the cards
     A-14 K-13 Q-12 J-11 T-10 9-9 ... 2-2'''
-    ranks_of_the_hand = ['--23456789TJQKA'.index(r) for r,s in cards]
+    ranks_of_the_hand = ['--23456789TJQKA'.index(r) for r,s in hand]
     ranks_of_the_hand.sort(reverse=True)
     return ranks_of_the_hand
 
 
-# two_pair('3s 3c 9s 9c Ts'.split())
-# two_pair_1('7s 3c 9s 9c Ts'.split())
-# hand1 = 'Ks Kc Ks Kc Ts'.split()
-# hand2 = 'As Ac As 9c Ts'.split()
+CARDS = ['A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2']
+SUITS = ['d','h','c','s']
+DECK = [r+s for r in CARDS for s in SUITS]
+def deal(num_of_hands, num_of_cards=5):
+    '''return hand with 5 cards from the deck'''
+    # check python itertools
+    random.shuffle(DECK)
+    return [DECK[num_of_cards*i:num_of_cards*(i+1)] for i in range(num_of_hands)]
 
-# print(find_max_hand([hand1, hand2]))
+
+n = 700*1000
+# n = 10000
+def hand_frequencies(n):
+    'Generate n numbers of hands and return percentage of each type of hand'
+    answers = {'high card':0,
+               'one pair':0,
+               'two pair':0,
+               'trips':0,
+               'straight':0,
+               'flush':0,
+               'full house':0,
+               'quads':0,
+               'straight flush':0}
+    for i in range(n):
+        current_hand = deal(1)[0]
+        current_hand_rank = hand_rank(current_hand)[0]
+        if current_hand_rank == 0:
+            answers['high card'] += 1
+        if current_hand_rank == 1:
+            answers['one pair'] += 1
+        if current_hand_rank == 2:
+            answers['two pair'] += 1
+        if current_hand_rank == 3:
+            answers['trips'] += 1
+        if current_hand_rank == 4:
+            answers['straight'] += 1
+        if current_hand_rank == 5:
+            answers['flush'] += 1
+        if current_hand_rank == 6:
+            answers['full house'] += 1
+        if current_hand_rank == 7:
+            answers['quads'] += 1
+        if current_hand_rank == 8:
+            answers['straight flush'] += 1
+
+    answers_as_tuples = answers.items()
+    # print(answers_as_tuples)
+    for item in answers_as_tuples:
+        print(item[0] + ':' + turn_num_to_percent(item[1], n) + '%')
+
+    # return answer
+
+
+def turn_num_to_percent(num, base):
+    '''take number and return :.3f string'''
+    num_as_percentage = (num / base) * 100
+    return '%.3f' % num_as_percentage
+
+
+print(hand_frequencies(n))

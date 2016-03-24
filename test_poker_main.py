@@ -43,6 +43,7 @@ class MyTest(unittest.TestCase):
 
     def test_cards_to_ranks(self):
         self.assertEqual(cards_to_ranks(self.rand_hand1), [9, 6, 5, 4, 3])
+        print(self.rand_hand1)
         self.assertEqual(cards_to_ranks(self.rand_hand2), [14,14,13,12,10])
         self.assertEqual(cards_to_ranks(self.straight_1), [10,9,8,7,6])
         self.assertEqual(cards_to_ranks(self.straight_2), [6,5,4,3,2])
@@ -155,9 +156,8 @@ class MyTest(unittest.TestCase):
         self.assertTrue(self.one_pair_rank > self.rand_hand_rank)
 
 
-    def one_pair_vs_high_card_2(self):
-        # error
-        self.assertEqual(find_max_hand(self.one_pair, self.rand_hand1), 'Gh Ad 4s 2s 7d'.split())
+    def test_pair_vs_high_card_1(self):
+        self.assertEqual(find_max_hand([self.one_pair, self.rand_hand1]),  'Ah Ad 4s 2s 8d'.split())
 
 
 if __name__ == '__main__':
