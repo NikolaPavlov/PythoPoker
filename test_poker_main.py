@@ -1,5 +1,5 @@
 import unittest
-from poker_main import cards_to_ranks, hand_rank, straight, flush, kind, two_pair
+from poker_main import cards_to_ranks, hand_rank, straight, flush, kind, two_pair, find_max_hand
 
 
 class MyTest(unittest.TestCase):
@@ -38,6 +38,7 @@ class MyTest(unittest.TestCase):
         self.assertEqual(hand_rank(self.trips), (3,2,[14,13,2,2,2]))
         self.assertEqual(hand_rank(self.two_pairs), (2, [9,9,3,3], [10,9,9,3,3]))
         self.assertEqual(hand_rank(self.one_pair), (1,14, [14,14,8,4,2]))
+        self.assertEqual(hand_rank(self.rand_hand1), (0,[9,6,5,4,3]))
 
 
     def test_cards_to_ranks(self):
@@ -97,32 +98,66 @@ class MyTest(unittest.TestCase):
         self.assertTrue(self.straight_flush_rank > self.quads_rank)
 
 
+    def test_str_flush_bs_quads_2(self):
+        self.assertEqual(find_max_hand([self.straight_flush, self.quads]), '2s 3s 4s 5s 6s'.split())
+
+
     def test_quads_vs_full_house(self):
         self.assertTrue(self.quads_rank > self.full_house_rank)
+
+
+    def test_quads_vs_full_house_2(self):
+        self.assertEqual(find_max_hand([self.quads, self.full_house]), 'Ah Ac Ad As Kd'.split())
 
 
     # def test_full_house_vs_flush(self):
         # self.assertTrue(self.full_house_rank > self.flush)
 
 
-    def test_flush_vs_straight_rank(self):
+    def test_full_house_vs_flush_2(self):
+        self.assertEqual(find_max_hand([self.full_house, self.flush]), 'Ah Ad Ac Kd Kh'.split())
+
+
+    def test_flush_vs_straight(self):
         self.assertTrue(self.flush_rank > self.straight_rank)
+
+
+    def test_flush_vs_straight_2(self):
+        self.assertEqual(find_max_hand([self.flush, self.straight_1]), 'Ts Js Qs Ks 2s'.split())
 
 
     def test_straight_vs_trips(self):
         self.assertTrue(self.straight_rank > self.trips_rank)
 
 
+    def test_straight_vs_trips_2(self):
+        self.assertEqual(find_max_hand([self.straight_1, self.trips]), '7h 8c 9s Ts 6s'.split() )
+
+
     def test_trips_vs_two_pair(self):
         self.assertTrue(self.trips_rank > self.two_pairs_rank)
+
+
+    def test_trips_vs_two_pair_2(self):
+        self.assertEqual(find_max_hand([self.trips, self.two_pairs]), '2s 2c 2d Ah Kh'.split())
 
 
     def test_two_pair_vs_one_pair(self):
         self.assertTrue(self.two_pairs_rank > self.one_pair_rank)
 
 
+    def test_two_pair_vs_one_pair_2(self):
+        self.assertEqual(find_max_hand([self.two_pairs, self.one_pair]), '3s 3c 9s 9c Ts'.split())
+
+
     def one_pair_vs_high_card(self):
+        # error
         self.assertTrue(self.one_pair_rank > self.rand_hand_rank)
+
+
+    def one_pair_vs_high_card_2(self):
+        # error
+        self.assertEqual(find_max_hand(self.one_pair, self.rand_hand1), 'Gh Ad 4s 2s 7d'.split())
 
 
 if __name__ == '__main__':

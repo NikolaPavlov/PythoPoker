@@ -32,7 +32,7 @@ def hand_rank(hand):
     elif kind(2, hand): # (1,14,[14,14,10,4,2])
         return(1, kind(2, hand), cards_as_points)
     # 0 hight card hand
-    else: # ([8,7,5,4,3])
+    else: # (0, [8,7,5,4,3])
         return(0, cards_as_points)
 
 
@@ -81,5 +81,8 @@ def cards_to_ranks(cards):
 
 
 # two_pair('3s 3c 9s 9c Ts'.split())
-# two_pair('7s 3c 9s 9c Ts'.split())
+# two_pair_1('7s 3c 9s 9c Ts'.split())
+# hand1 = 'Ks Kc Ks Kc Ts'.split()
+# hand2 = 'As Ac As 9c Ts'.split()
 
+# print(find_max_hand([hand1, hand2]))
