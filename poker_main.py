@@ -89,8 +89,8 @@ def deal(num_of_hands, num_of_cards=5):
     return [DECK[num_of_cards*i:num_of_cards*(i+1)] for i in range(num_of_hands)]
 
 
-# n = 700*5000
-n = 700*1000
+n = 700*5000
+# n = 700*1000
 def hand_frequencies(n):
     '''Generate n numbers of hands and print percentage of each type of hand'''
     answers = {'high card':0,
@@ -124,9 +124,12 @@ def hand_frequencies(n):
         if current_hand_rank == 8:
             answers['straight flush'] += 1
 
-    answers_as_tuples = answers.items()
-    for item in answers_as_tuples:
-        print(item[0] + ':' + turn_num_to_percent(item[1], n) + '%')
+    sorted_answers = sorted(answers.items(), key=lambda x: x[1], reverse=True)
+    # for item in lst:
+        # print(item)
+
+    for item in sorted_answers:
+        print(item[0] + ' : ' + turn_num_to_percent(item[1], n) + '%')
 
 
 def turn_num_to_percent(num, base):
@@ -135,5 +138,3 @@ def turn_num_to_percent(num, base):
     return '%.3f' % num_as_percentage
 
 hand_frequencies(n)
-#TODO: check python itertools
-#TODO: sort the values of answers
