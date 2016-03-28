@@ -174,5 +174,24 @@ class MyTest(unittest.TestCase):
         self.assertEqual(find_max_hand([self.one_pair, self.rand_hand1]),  'Ah Ad 4s 2s 8d'.split())
 
 
+    def test_multipale_hands_quads_win(self):
+        self.assertEqual(find_max_hand([self.one_pair,
+                                        self.two_pairs,
+                                        self.trips,
+                                        self.quads,
+                                        self.rand_hand1,
+                                        self.straight_1]), self.quads)
+
+
+    def test_multipale_hands_straight_flush_win(self):
+        self.assertEqual(find_max_hand([self.one_pair,
+                                        self.two_pairs,
+                                        self.trips,
+                                        self.quads,
+                                        self.rand_hand1,
+                                        self.straight_1,
+                                        self.straight_flush]), self.straight_flush)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -137,4 +137,4 @@ def turn_num_to_percent(num, base):
     num_as_percentage = (num / base) * 100
     return '%.3f' % num_as_percentage
 
-hand_frequencies(n)
+# hand_frequencies(n)
